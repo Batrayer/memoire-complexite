@@ -11,7 +11,7 @@ class ParserASTJson:
         #if(nodeObj["_nodetype"] != "Assignment") :
         if(len(self.deep) < self.valtableau) :
             self.deep.append(self.level)
-            self.deepLisible.append(nodeObj["_nodetype"]+ self.level)
+            self.deepLisible.append(nodeObj["_nodetype"] +  " " + str(self.level))
         self.valtableau += 1
         print(nodeObj["_nodetype"])
         if(nodeObj["_nodetype"] == "If"): 

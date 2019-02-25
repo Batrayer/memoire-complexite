@@ -219,6 +219,6 @@ if __name__ == "__main__":
                 myParse.somethingDeep(y)
 
         print(myParse.deep)
-
+        print(myParse.deepLisible)
     else:
         print("Please provide a filename as argument")
