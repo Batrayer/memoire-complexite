@@ -198,26 +198,27 @@ def to_json(node, **kwargs):
     """ Convert ast node to json string """
     return json.dumps(to_dict(node), **kwargs)
 
-def somethingDeep(nodeobj): 
-    print(nodeobj["_nodetype"])
-    print("\n")
-    #if (nodeobj["_nodetype"] == "Decl"):
-
-    if ("stmt" in nodeobj and nodeobj["stmt"] != None):
-        for node in nodeobj["stmt"]["block_items"]:
-            somethingDeep(node)
-    
-
+from ParserASTJson import ParserASTJson
 
 if __name__ == "__main__":
+    myParse = ParserASTJson()
     if len(sys.argv) > 1:
         ast_dict = file_to_dict(sys.argv[1])
         ast = from_dict(ast_dict)
+        
         data = to_json(ast, sort_keys=True, indent=4)
-        #print(data)
+        
+        # print(data)
+        fichier = open("data.json", "a")
+        fichier.write(data)
+        fichier.close()
+
         data = json.loads(data)
         for x in data["ext"]:
             for y in x["body"]["block_items"]:
-                somethingDeep(y)
+                myParse.somethingDeep(y)
+
+        print(myParse.deep)
+
     else:
         print("Please provide a filename as argument")

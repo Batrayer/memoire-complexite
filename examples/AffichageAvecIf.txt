@@ -1,0 +1,23 @@
+For
+For
+If
+nodeObjTrue
+Assignment
+Assignment
+Assignment
+If
+nodeObjTrue
+UnaryOp
+While
+UnaryOp
+While
+UnaryOp
+While
+UnaryOp
+DoWhile
+UnaryOp
+[1, 2, 3, 3, 3, 3, 4, 3, 4, 1, 2, 1, 2, 0, 1]
+
+/**
+Prend en compte les ifs dans le calcul de la profondeur. Prend tous les nodes et leurs affichent leur position dans le tableau
+**/
