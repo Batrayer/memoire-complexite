@@ -1,8 +1,7 @@
-
 int main()
 {
-    // int i,j,tmp, useless=0;
-    for(i=0; i<taille; i++)
+    int i,j,tmp, useless=0, taille;
+    for(; i<=taille; i++)
     {
         for(j=0; j<taille-1-i; j++)
         {
@@ -15,7 +14,7 @@ int main()
                 {
                     useless++;
                 }
-                while(false){
+                while(false) {
                     useless++;
                 }
             }
@@ -31,6 +30,4 @@ int main()
     {
         useless++;
     } while (false);
-    
-    
 }

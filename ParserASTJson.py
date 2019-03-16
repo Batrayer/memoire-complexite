@@ -2,24 +2,58 @@ class ParserASTJson:
     def __init__(self):
         self.deep = []
         self.deepLisible = []
+        self.variable = []
+        self.usedVariable = []
         self.valtableau = 0
         self.level = 0
     '''
     Fonction recursive qui check
     '''
     def somethingDeep(self, nodeObj): 
-        #if(nodeObj["_nodetype"] != "Assignment") :
         if(len(self.deep) < self.valtableau) :
             self.deep.append(self.level)
             self.deepLisible.append(nodeObj["_nodetype"] +  " " + str(self.level))
         self.valtableau += 1
         print(nodeObj["_nodetype"])
-        if(nodeObj["_nodetype"] == "If"): 
+        if (nodeObj["_nodetype"] == "If"): 
             self.ifNode(nodeObj)
-        else: 
+        elif (nodeObj["_nodetype"] == "Decl"): 
+            self.declNode(nodeObj)
+        elif (nodeObj["_nodetype"] == "For"):
+            self.forNode(nodeObj)
+        else:
             self.otherNode(nodeObj)
             
 
+    '''
+    If node is a for => register variable used in each for 
+    '''
+    def forNode(self, nodeObj):
+        assignement = nodeObj["init"]
+        cond = nodeObj["cond"]
+        print(cond)
+        if (cond["_nodetype"] == "BinaryOp"):
+            self.binaryNode(cond)
+        #if (assignement != None):
+            #print(assignement)
+            #self.usedVariable.append(assignement["lvalue"]["name"])
+        self.otherNode(nodeObj)
+
+    def binaryNode(self, nodeObj):
+        if(nodeObj["left"]["_nodetype"] == "Id"):
+            self.usedVariable.append("left : " + nodeObj["left"]["name"])
+        elif (nodeObj["left"]["_nodetype"] == "BinaryOp"):
+            self.binaryNode(nodeObj)
+        if(nodeObj["right"]["_nodetype"] == "Id"):
+            self.usedVariable.append("right : " + nodeObj["right"]["name"] )
+        elif(nodeObj["right"]["_nodetype"] == "BinaryOp"):
+            self.binaryNode(nodeObj)
+    '''
+    If node is a decleration node => register variable for future use
+    '''
+    def declNode(self, nodeObj):
+        self.variable.append(nodeObj["name"])
+        self.otherNode(nodeObj)
     '''
     If Node has a special element if or else before block_item
     so it must be treated as special

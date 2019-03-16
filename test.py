@@ -209,9 +209,9 @@ if __name__ == "__main__":
         data = to_json(ast, sort_keys=True, indent=4)
         
         # print(data)
-        fichier = open("data.json", "a")
-        fichier.write(data)
-        fichier.close()
+        # fichier = open("data.json", "a")
+        # fichier.write(data)
+        # fichier.close()
 
         data = json.loads(data)
         for x in data["ext"]:
@@ -220,5 +220,7 @@ if __name__ == "__main__":
 
         print(myParse.deep)
         print(myParse.deepLisible)
+        print(myParse.variable)
+        print(myParse.usedVariable)
     else:
         print("Please provide a filename as argument")
