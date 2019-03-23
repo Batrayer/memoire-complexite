@@ -9,7 +9,7 @@ class ParserASTJson:
         self.complexiteBasic = 0
         self.complexiteVariable = []
         self.args = []
-        self.nodeOperation = ["+", "-", "/", "*", "%"]
+        self.nodeOperation = ["+", "-", "/", "*", "%", ">", "<", ">=", "<="]
     '''
     Fonction recursive qui check
     '''
@@ -98,17 +98,33 @@ class ParserASTJson:
     If Node has a special element if or else before block_item
     so it must be treated as special
     '''
-    def ifNode(self, nodeObj): 
+    def ifNode(self, nodeObj):
+        complexiteActuel = self.complexiteBasic
+        complexiteF = 0
+        complexiteT = 0
+        if("cond" != None):
+            self.somethingDeep(nodeObj["cond"])
         if (nodeObj["iffalse"] != None and nodeObj["iffalse"] != "null"):
             nodeObjFalse = nodeObj["iffalse"]
             self.level -= 1
             self.getTheDeep(nodeObjFalse)
             self.level += 1
+            complexiteF = self.complexiteBasic - complexiteActuel
+            self.incComplexite(-complexiteF)
         if (nodeObj["iftrue"] != None and nodeObj["iftrue"] != "null"):
             nodeObjTrue = nodeObj["iftrue"]
             self.level -= 1
             self.getTheDeep(nodeObjTrue)
             self.level += 1
+            complexiteT = self.complexiteBasic - complexiteActuel
+            self.incComplexite(-complexiteT)
+        
+        if (complexiteF >= complexiteT):
+            self.incComplexite(complexiteF)
+        else :
+            self.incComplexite(complexiteT)
+
+
     '''
     Function node 
     '''

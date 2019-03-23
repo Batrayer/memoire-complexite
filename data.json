@@ -44,38 +44,65 @@
                         "op": "p++"
                     },
                     {
-                        "_nodetype": "Return",
-                        "coord": "examples\\\\main.c:5:5",
-                        "expr": {
+                        "_nodetype": "If",
+                        "cond": {
                             "_nodetype": "BinaryOp",
-                            "coord": "examples\\\\main.c:5:12",
+                            "coord": "examples\\\\main.c:5:9",
                             "left": {
-                                "_nodetype": "BinaryOp",
-                                "coord": "examples\\\\main.c:5:12",
-                                "left": {
-                                    "_nodetype": "FuncCall",
-                                    "args": null,
-                                    "coord": "examples\\\\main.c:5:12",
-                                    "name": {
-                                        "_nodetype": "ID",
-                                        "coord": "examples\\\\main.c:5:12",
-                                        "name": "rand"
-                                    }
-                                },
-                                "op": "%",
-                                "right": {
-                                    "_nodetype": "ID",
-                                    "coord": "examples\\\\main.c:5:19",
-                                    "name": "n"
-                                }
+                                "_nodetype": "ID",
+                                "coord": "examples\\\\main.c:5:9",
+                                "name": "n"
                             },
-                            "op": "+",
+                            "op": ">",
                             "right": {
                                 "_nodetype": "Constant",
-                                "coord": "examples\\\\main.c:5:21",
+                                "coord": "examples\\\\main.c:5:13",
                                 "type": "int",
                                 "value": "1"
                             }
+                        },
+                        "coord": "examples\\\\main.c:5:5",
+                        "iffalse": null,
+                        "iftrue": {
+                            "_nodetype": "Compound",
+                            "block_items": [
+                                {
+                                    "_nodetype": "Return",
+                                    "coord": "examples\\\\main.c:6:9",
+                                    "expr": {
+                                        "_nodetype": "BinaryOp",
+                                        "coord": "examples\\\\main.c:6:16",
+                                        "left": {
+                                            "_nodetype": "BinaryOp",
+                                            "coord": "examples\\\\main.c:6:16",
+                                            "left": {
+                                                "_nodetype": "FuncCall",
+                                                "args": null,
+                                                "coord": "examples\\\\main.c:6:16",
+                                                "name": {
+                                                    "_nodetype": "ID",
+                                                    "coord": "examples\\\\main.c:6:16",
+                                                    "name": "rand"
+                                                }
+                                            },
+                                            "op": "%",
+                                            "right": {
+                                                "_nodetype": "ID",
+                                                "coord": "examples\\\\main.c:6:25",
+                                                "name": "n"
+                                            }
+                                        },
+                                        "op": "+",
+                                        "right": {
+                                            "_nodetype": "Constant",
+                                            "coord": "examples\\\\main.c:6:27",
+                                            "type": "int",
+                                            "value": "1"
+                                        }
+                                    }
+                                }
+                            ],
+                            "coord": "examples\\\\main.c:5:1"
                         }
                     }
                 ],

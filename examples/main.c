@@ -1,6 +1,8 @@
-int nombre_aleatoire(int n, char ch)
+int nombre_aleatoire(int n)
 {
     n = n + 1;
     n++;
-    return rand() % n+1;
+    if (n > 1) {
+        return rand() % n + 1;    
+    }
 }
