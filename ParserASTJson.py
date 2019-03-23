@@ -6,21 +6,37 @@ class ParserASTJson:
         self.usedVariable = []
         self.valtableau = 0
         self.level = 0
+        self.complexiteBasic = 0
+        self.complexiteVariable = []
+        self.args = []
+        self.nodeOperation = ["+", "-", "/", "*", "%"]
     '''
     Fonction recursive qui check
     '''
     def somethingDeep(self, nodeObj): 
-        if(len(self.deep) < self.valtableau) :
+        if (len(self.deep) < self.valtableau) :
             self.deep.append(self.level)
             self.deepLisible.append(nodeObj["_nodetype"] +  " " + str(self.level))
         self.valtableau += 1
-        print(nodeObj["_nodetype"])
-        if (nodeObj["_nodetype"] == "If"): 
+        nodeType = nodeObj["_nodetype"]
+        if (nodeType == "BinaryOp"):
+            self.binaryNode(nodeObj)
+        elif (nodeType == "If"): 
             self.ifNode(nodeObj)
-        elif (nodeObj["_nodetype"] == "Decl"): 
+        elif (nodeType == "Decl"): 
             self.declNode(nodeObj)
-        elif (nodeObj["_nodetype"] == "For"):
+        elif (nodeType == "For"):
             self.forNode(nodeObj)
+        elif (nodeType == "FuncDef"):
+            self.funcDefNode(nodeObj)
+        elif (nodeType == "FuncCall"):
+            self.funcCallNode(nodeObj)
+        elif (nodeType == "Return"):
+            self.funcReturnNode(nodeObj)
+        elif (nodeType == "Assignment"):
+            self.assignmentNode(nodeObj)
+        elif (nodeType == "UnaryOp"):
+            self.unaryOpNode(nodeObj)
         else:
             self.otherNode(nodeObj)
             
@@ -30,56 +46,102 @@ class ParserASTJson:
     '''
     def forNode(self, nodeObj):
         assignement = nodeObj["init"]
-        cond = nodeObj["cond"]
-        print(cond)
-        if (cond["_nodetype"] == "BinaryOp"):
-            self.binaryNode(cond)
-        #if (assignement != None):
-            #print(assignement)
-            #self.usedVariable.append(assignement["lvalue"]["name"])
+
+        if ("cond" in nodeObj):
+            print(nodeObj["cond"])
+            self.somethingDeep(nodeObj["cond"])
+        if (assignement != None):
+            self.usedVariable.append(assignement["lvalue"]["name"])
         self.otherNode(nodeObj)
 
+    '''
+    Binary node is a calculation it has a left side and a right side and a sign (+ - * / % ...)
+    '''
     def binaryNode(self, nodeObj):
-        if(nodeObj["left"]["_nodetype"] == "Id"):
-            self.usedVariable.append("left : " + nodeObj["left"]["name"])
-        elif (nodeObj["left"]["_nodetype"] == "BinaryOp"):
-            self.binaryNode(nodeObj)
-        if(nodeObj["right"]["_nodetype"] == "Id"):
-            self.usedVariable.append("right : " + nodeObj["right"]["name"] )
-        elif(nodeObj["right"]["_nodetype"] == "BinaryOp"):
-            self.binaryNode(nodeObj)
+        print("BinaryNode")
+        if("left" in nodeObj):
+            if (nodeObj["left"]["_nodetype"] == "Id"):
+                self.usedVariable.append("left : " + nodeObj["left"]["name"])
+            self.somethingDeep(nodeObj["left"])
+        if("right" in nodeObj):
+            if (nodeObj["right"]["_nodetype"] == "Id"):
+                self.usedVariable.append("right : " + nodeObj["right"]["name"] )
+            self.somethingDeep(nodeObj["right"])
+        if(nodeObj["op"] in self.nodeOperation):
+            print("Good operator")
+            self.incComplexite()
+        else:
+            print("unknown operator")
+    def assignmentNode(self, nodeObj):
+        print("AssignementNode")
+        self.incComplexite()
+        if ("rvalue" in nodeObj):
+            self.somethingDeep(nodeObj["rvalue"])  
+    def unaryOpNode(self, nodeObj):
+        self.incComplexite()
     '''
     If node is a decleration node => register variable for future use
     '''
-    def declNode(self, nodeObj):
-        self.variable.append(nodeObj["name"])
+    def declNode(self, nodeObj, param = False):
+        if ("type" in nodeObj and nodeObj["type"]["_nodetype"] == "FuncDecl"):
+            if ("args" in nodeObj["type"] and nodeObj["type"]["args"]["_nodetype"] == "ParamList"):
+                if ("params" in nodeObj["type"]["args"]):
+                    for node in nodeObj["type"]["args"]["params"]:
+                        self.declNode(node, True)
+        else:
+            if(param):
+                self.args.append(nodeObj["name"])
+            else:
+                self.variable.append(nodeObj["name"])
         self.otherNode(nodeObj)
     '''
     If Node has a special element if or else before block_item
     so it must be treated as special
     '''
     def ifNode(self, nodeObj): 
-
-        if(nodeObj["iffalse"] != None and nodeObj["iffalse"] != "null"):
+        if (nodeObj["iffalse"] != None and nodeObj["iffalse"] != "null"):
             nodeObjFalse = nodeObj["iffalse"]
             self.level -= 1
             self.getTheDeep(nodeObjFalse)
             self.level += 1
-        if(nodeObj["iftrue"] != None and nodeObj["iftrue"] != "null"):
+        if (nodeObj["iftrue"] != None and nodeObj["iftrue"] != "null"):
             nodeObjTrue = nodeObj["iftrue"]
             self.level -= 1
             self.getTheDeep(nodeObjTrue)
             self.level += 1
+    '''
+    Function node 
+    '''
+    def funcDefNode(self, nodeObj):
+        if ("decl" in nodeObj and nodeObj["decl"] != None):
+            self.declNode(nodeObj["decl"])
+        if ("body" in nodeObj and nodeObj["body"] != None):
+            for node in nodeObj["body"]["block_items"] :
+                self.somethingDeep(node)
 
-    '''
-    Every non special node 
-    '''
+    def funcReturnNode(self, nodeObj):
+        if("expr" in nodeObj and nodeObj["expr"] != None):
+            self.somethingDeep(nodeObj["expr"])
+
     def otherNode(self, nodeObj):
         if ("stmt" in nodeObj and nodeObj["stmt"] != None):
             self.getTheDeep(nodeObj["stmt"])
+    '''
+    Increment basic complexite point
+    '''
+    def incComplexite(self, i = 1):
+        self.complexiteBasic = self.complexiteBasic + i
+
+    def funcCallNode(self, nodeObj): 
+        if ("name" in nodeObj and nodeObj["name"] != None):
+            if(nodeObj["name"]["name"] == "rand"):
+                self.incComplexite()
+            else:
+                print("Function complexity unknown for : " + nodeObj["name"]["name"] + "incrementing by one")
+                self.incComplexite()
 
     def getTheDeep(self, nodeObj):
-            if(nodeObj["block_items"] != None):
+            if (nodeObj["block_items"] != None):
                 for node in nodeObj["block_items"]:
                     self.level += 1
                     self.somethingDeep(node)

@@ -1,33 +1,6 @@
-int main()
+int nombre_aleatoire(int n, char ch)
 {
-    int i,j,tmp, useless=0, taille;
-    for(; i<=taille; i++)
-    {
-        for(j=0; j<taille-1-i; j++)
-        {
-            if(tab[j]>tab[j+1])
-            {
-                tmp=tab[j];
-                tab[j]=tab[j+1];
-                tab[j+1]=tmp;
-                if(true)
-                {
-                    useless++;
-                }
-                while(false) {
-                    useless++;
-                }
-            }
-        }
-        while(false){
-            useless++;
-        }
-        while(false){
-            useless++;
-        }
-    }
-    do
-    {
-        useless++;
-    } while (false);
+    n = n + 1;
+    n++;
+    return rand() % n+1;
 }

@@ -14,7 +14,6 @@ import re
 import json
 from pycparser import parse_file, c_parser, c_generator , c_ast
 from pycparser.plyparser import Coord
-from NodePerso import NodePerso
 
 from collections import namedtuple
 
@@ -215,12 +214,14 @@ if __name__ == "__main__":
 
         data = json.loads(data)
         for x in data["ext"]:
-            for y in x["body"]["block_items"]:
-                myParse.somethingDeep(y)
+            # for y in x["body"]["block_items"]:
+            myParse.somethingDeep(x)
 
-        print(myParse.deep)
-        print(myParse.deepLisible)
+        # print(myParse.deep)
+        # print(myParse.deepLisible)
         print(myParse.variable)
-        print(myParse.usedVariable)
+        # print(myParse.usedVariable)
+        print(myParse.args)
+        print("complexite : " + str(myParse.complexiteBasic))
     else:
         print("Please provide a filename as argument")
