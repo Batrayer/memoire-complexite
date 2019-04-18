@@ -9,6 +9,9 @@ class ParserASTJson:
         self.complexiteBasic = 0
         self.complexiteVariable = []
         self.args = []
+        self.insideCondFor = False
+        self.insideFor = False
+        self.magie = []
         self.nodeOperation = ["+", "-", "/", "*", "%", ">", "<", ">=", "<="]
     '''
     Fonction recursive qui check
@@ -45,33 +48,42 @@ class ParserASTJson:
     If node is a for => register variable used in each for 
     '''
     def forNode(self, nodeObj):
-        assignement = nodeObj["init"]
-
+        nbOp = self.complexiteBasic
+        self.complexiteBasic = 0
         if ("cond" in nodeObj):
-            print(nodeObj["cond"])
+            self.insideCondFor = True
             self.somethingDeep(nodeObj["cond"])
-        if (assignement != None):
-            self.usedVariable.append(assignement["lvalue"]["name"])
+            self.insideCondFor = False
+        if ("init" in nodeObj):
+            self.somethingDeep(nodeObj["init"])
+        if ("next" in nodeObj):
+            self.somethingDeep(nodeObj["next"])
+            # self.usedVariable.append(assignement["lvalue"]["name"]) si la var est assignée dans le for
+        self.insideFor = True
         self.otherNode(nodeObj)
-
+        self.insideFor = False
+        print("For: " + str(self.usedVariable))
+        self.magie.append(str(self.usedVariable)+ " " + str(self.complexiteBasic))
+        self.usedVariable = []
+        self.complexiteBasic = nbOp + self.complexiteBasic
     '''
     Binary node is a calculation it has a left side and a right side and a sign (+ - * / % ...)
     '''
     def binaryNode(self, nodeObj):
         print("BinaryNode")
+        print(nodeObj["left"]["_nodetype"] == "ID" and self.insideCondFor)
         if("left" in nodeObj):
-            if (nodeObj["left"]["_nodetype"] == "Id"):
-                self.usedVariable.append("left : " + nodeObj["left"]["name"])
+            if (nodeObj["left"]["_nodetype"] == "ID" and self.insideCondFor):
+                self.usedVariable.append(nodeObj["left"]["name"])
             self.somethingDeep(nodeObj["left"])
-        if("right" in nodeObj):
-            if (nodeObj["right"]["_nodetype"] == "Id"):
-                self.usedVariable.append("right : " + nodeObj["right"]["name"] )
-            self.somethingDeep(nodeObj["right"])
         if(nodeObj["op"] in self.nodeOperation):
-            print("Good operator")
+            if(self.insideCondFor):
+                self.usedVariable.append(nodeObj["op"])
             self.incComplexite()
-        else:
-            print("unknown operator")
+        if("right" in nodeObj):
+            if (nodeObj["right"]["_nodetype"] == "ID" and self.insideCondFor):
+                self.usedVariable.append(nodeObj["right"]["name"] )
+            self.somethingDeep(nodeObj["right"])
     def assignmentNode(self, nodeObj):
         print("AssignementNode")
         self.incComplexite()
