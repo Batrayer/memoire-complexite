@@ -223,6 +223,8 @@ if __name__ == "__main__":
         # print(myParse.usedVariable)
         print(myParse.args)
         print("Nombre d'operation : " + str(myParse.complexiteBasic))
-        print("magie : " + str(myParse.magie))
+        for val in myParse.assignatedVariable:
+            print(val)
+        print("magie : " + str(myParse.assignatedVariable))
     else:
         print("Please provide a filename as argument")

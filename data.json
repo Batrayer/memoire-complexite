@@ -8,26 +8,54 @@
                 "_nodetype": "Compound",
                 "block_items": [
                     {
+                        "_nodetype": "Decl",
+                        "bitsize": null,
+                        "coord": "examples\\\\main.c:3:9",
+                        "funcspec": [],
+                        "init": {
+                            "_nodetype": "Constant",
+                            "coord": "examples\\\\main.c:3:13",
+                            "type": "int",
+                            "value": "0"
+                        },
+                        "name": "y",
+                        "quals": [],
+                        "storage": [],
+                        "type": {
+                            "_nodetype": "TypeDecl",
+                            "coord": "examples\\\\main.c:3:9",
+                            "declname": "y",
+                            "quals": [],
+                            "type": {
+                                "_nodetype": "IdentifierType",
+                                "coord": "examples\\\\main.c:3:5",
+                                "names": [
+                                    "int"
+                                ]
+                            }
+                        }
+                    },
+                    {
                         "_nodetype": "Assignment",
-                        "coord": "examples\\\\main.c:3:5",
+                        "coord": "examples\\\\main.c:4:5",
                         "lvalue": {
                             "_nodetype": "ID",
-                            "coord": "examples\\\\main.c:3:5",
+                            "coord": "examples\\\\main.c:4:5",
                             "name": "n"
                         },
                         "op": "=",
                         "rvalue": {
                             "_nodetype": "BinaryOp",
-                            "coord": "examples\\\\main.c:3:9",
+                            "coord": "examples\\\\main.c:4:9",
                             "left": {
                                 "_nodetype": "ID",
-                                "coord": "examples\\\\main.c:3:9",
+                                "coord": "examples\\\\main.c:4:9",
                                 "name": "n"
                             },
                             "op": "+",
                             "right": {
                                 "_nodetype": "Constant",
-                                "coord": "examples\\\\main.c:3:13",
+                                "coord": "examples\\\\main.c:4:13",
                                 "type": "int",
                                 "value": "1"
                             }
@@ -35,10 +63,10 @@
                     },
                     {
                         "_nodetype": "UnaryOp",
-                        "coord": "examples\\\\main.c:4:5",
+                        "coord": "examples\\\\main.c:5:5",
                         "expr": {
                             "_nodetype": "ID",
-                            "coord": "examples\\\\main.c:4:5",
+                            "coord": "examples\\\\main.c:5:5",
                             "name": "n"
                         },
                         "op": "p++"
@@ -46,7 +74,7 @@
                     {
                         "_nodetype": "Decl",
                         "bitsize": null,
-                        "coord": "examples\\\\main.c:5:9",
+                        "coord": "examples\\\\main.c:6:9",
                         "funcspec": [],
                         "init": null,
                         "name": "c",
@@ -54,12 +82,12 @@
                         "storage": [],
                         "type": {
                             "_nodetype": "TypeDecl",
-                            "coord": "examples\\\\main.c:5:9",
+                            "coord": "examples\\\\main.c:6:9",
                             "declname": "c",
                             "quals": [],
                             "type": {
                                 "_nodetype": "IdentifierType",
-                                "coord": "examples\\\\main.c:5:5",
+                                "coord": "examples\\\\main.c:6:5",
                                 "names": [
                                     "int"
                                 ]
@@ -70,190 +98,96 @@
                         "_nodetype": "If",
                         "cond": {
                             "_nodetype": "BinaryOp",
-                            "coord": "examples\\\\main.c:6:9",
+                            "coord": "examples\\\\main.c:7:9",
                             "left": {
                                 "_nodetype": "ID",
-                                "coord": "examples\\\\main.c:6:9",
+                                "coord": "examples\\\\main.c:7:9",
                                 "name": "n"
                             },
                             "op": ">",
                             "right": {
                                 "_nodetype": "Constant",
-                                "coord": "examples\\\\main.c:6:13",
+                                "coord": "examples\\\\main.c:7:13",
                                 "type": "int",
                                 "value": "1"
                             }
                         },
-                        "coord": "examples\\\\main.c:6:5",
+                        "coord": "examples\\\\main.c:7:5",
                         "iffalse": null,
                         "iftrue": {
                             "_nodetype": "Compound",
                             "block_items": [
                                 {
                                     "_nodetype": "Assignment",
-                                    "coord": "examples\\\\main.c:8:9",
+                                    "coord": "examples\\\\main.c:9:9",
                                     "lvalue": {
                                         "_nodetype": "ID",
-                                        "coord": "examples\\\\main.c:8:9",
+                                        "coord": "examples\\\\main.c:9:9",
                                         "name": "n"
                                     },
                                     "op": "=",
                                     "rvalue": {
                                         "_nodetype": "BinaryOp",
-                                        "coord": "examples\\\\main.c:8:13",
+                                        "coord": "examples\\\\main.c:9:13",
                                         "left": {
                                             "_nodetype": "ID",
-                                            "coord": "examples\\\\main.c:8:13",
+                                            "coord": "examples\\\\main.c:9:13",
                                             "name": "n"
                                         },
                                         "op": "%",
                                         "right": {
                                             "_nodetype": "Constant",
-                                            "coord": "examples\\\\main.c:8:17",
+                                            "coord": "examples\\\\main.c:9:17",
                                             "type": "int",
                                             "value": "5"
                                         }
                                     }
                                 }
                             ],
-                            "coord": "examples\\\\main.c:6:1"
+                            "coord": "examples\\\\main.c:7:1"
                         }
                     },
                     {
                         "_nodetype": "For",
                         "cond": {
                             "_nodetype": "BinaryOp",
-                            "coord": "examples\\\\main.c:10:17",
+                            "coord": "examples\\\\main.c:14:17",
                             "left": {
                                 "_nodetype": "ID",
-                                "coord": "examples\\\\main.c:10:17",
-                                "name": "n"
-                            },
-                            "op": "<",
-                            "right": {
-                                "_nodetype": "Constant",
-                                "coord": "examples\\\\main.c:10:21",
-                                "type": "int",
-                                "value": "10"
-                            }
-                        },
-                        "coord": "examples\\\\main.c:10:5",
-                        "init": {
-                            "_nodetype": "Assignment",
-                            "coord": "examples\\\\main.c:10:10",
-                            "lvalue": {
-                                "_nodetype": "ID",
-                                "coord": "examples\\\\main.c:10:10",
-                                "name": "n"
-                            },
-                            "op": "=",
-                            "rvalue": {
-                                "_nodetype": "Constant",
-                                "coord": "examples\\\\main.c:10:14",
-                                "type": "int",
-                                "value": "0"
-                            }
-                        },
-                        "next": {
-                            "_nodetype": "Assignment",
-                            "coord": "examples\\\\main.c:10:25",
-                            "lvalue": {
-                                "_nodetype": "ID",
-                                "coord": "examples\\\\main.c:10:25",
-                                "name": "n"
-                            },
-                            "op": "=",
-                            "rvalue": {
-                                "_nodetype": "BinaryOp",
-                                "coord": "examples\\\\main.c:10:29",
-                                "left": {
-                                    "_nodetype": "ID",
-                                    "coord": "examples\\\\main.c:10:29",
-                                    "name": "n"
-                                },
-                                "op": "+",
-                                "right": {
-                                    "_nodetype": "Constant",
-                                    "coord": "examples\\\\main.c:10:33",
-                                    "type": "int",
-                                    "value": "1"
-                                }
-                            }
-                        },
-                        "stmt": {
-                            "_nodetype": "Compound",
-                            "block_items": [
-                                {
-                                    "_nodetype": "Assignment",
-                                    "coord": "examples\\\\main.c:11:9",
-                                    "lvalue": {
-                                        "_nodetype": "ID",
-                                        "coord": "examples\\\\main.c:11:9",
-                                        "name": "c"
-                                    },
-                                    "op": "=",
-                                    "rvalue": {
-                                        "_nodetype": "BinaryOp",
-                                        "coord": "examples\\\\main.c:11:13",
-                                        "left": {
-                                            "_nodetype": "ID",
-                                            "coord": "examples\\\\main.c:11:13",
-                                            "name": "n"
-                                        },
-                                        "op": "*",
-                                        "right": {
-                                            "_nodetype": "Constant",
-                                            "coord": "examples\\\\main.c:11:17",
-                                            "type": "int",
-                                            "value": "2"
-                                        }
-                                    }
-                                }
-                            ],
-                            "coord": "examples\\\\main.c:10:1"
-                        }
-                    },
-                    {
-                        "_nodetype": "For",
-                        "cond": {
-                            "_nodetype": "BinaryOp",
-                            "coord": "examples\\\\main.c:13:17",
-                            "left": {
-                                "_nodetype": "ID",
-                                "coord": "examples\\\\main.c:13:17",
+                                "coord": "examples\\\\main.c:14:17",
                                 "name": "y"
                             },
                             "op": ">",
                             "right": {
                                 "_nodetype": "Constant",
-                                "coord": "examples\\\\main.c:13:21",
+                                "coord": "examples\\\\main.c:14:21",
                                 "type": "int",
                                 "value": "5"
                             }
                         },
-                        "coord": "examples\\\\main.c:13:5",
+                        "coord": "examples\\\\main.c:14:5",
                         "init": {
                             "_nodetype": "Assignment",
-                            "coord": "examples\\\\main.c:13:10",
+                            "coord": "examples\\\\main.c:14:10",
                             "lvalue": {
                                 "_nodetype": "ID",
-                                "coord": "examples\\\\main.c:13:10",
+                                "coord": "examples\\\\main.c:14:10",
                                 "name": "y"
                             },
                             "op": "=",
                             "rvalue": {
                                 "_nodetype": "Constant",
-                                "coord": "examples\\\\main.c:13:14",
+                                "coord": "examples\\\\main.c:14:14",
                                 "type": "int",
                                 "value": "0"
                             }
                         },
                         "next": {
                             "_nodetype": "UnaryOp",
-                            "coord": "examples\\\\main.c:13:24",
+                            "coord": "examples\\\\main.c:14:24",
                             "expr": {
                                 "_nodetype": "ID",
-                                "coord": "examples\\\\main.c:13:24",
+                                "coord": "examples\\\\main.c:14:24",
                                 "name": "y"
                             },
                             "op": "p++"
@@ -263,32 +197,32 @@
                             "block_items": [
                                 {
                                     "_nodetype": "Assignment",
-                                    "coord": "examples\\\\main.c:14:9",
+                                    "coord": "examples\\\\main.c:15:9",
                                     "lvalue": {
                                         "_nodetype": "ID",
-                                        "coord": "examples\\\\main.c:14:9",
+                                        "coord": "examples\\\\main.c:15:9",
                                         "name": "c"
                                     },
                                     "op": "=",
                                     "rvalue": {
                                         "_nodetype": "BinaryOp",
-                                        "coord": "examples\\\\main.c:14:13",
+                                        "coord": "examples\\\\main.c:15:13",
                                         "left": {
                                             "_nodetype": "ID",
-                                            "coord": "examples\\\\main.c:14:13",
+                                            "coord": "examples\\\\main.c:15:13",
                                             "name": "c"
                                         },
                                         "op": "+",
                                         "right": {
                                             "_nodetype": "Constant",
-                                            "coord": "examples\\\\main.c:14:17",
+                                            "coord": "examples\\\\main.c:15:17",
                                             "type": "int",
                                             "value": "1"
                                         }
                                     }
                                 }
                             ],
-                            "coord": "examples\\\\main.c:13:1"
+                            "coord": "examples\\\\main.c:14:1"
                         }
                     }
                 ],
